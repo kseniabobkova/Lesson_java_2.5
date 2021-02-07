@@ -21,6 +21,11 @@
             <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -52,25 +57,25 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                <execution>
-                    <id>jacoco-check</id>
-                    <goals>
-                        <goal>check</goal>
-                    </goals>
-                    <configuration>
-                        <rules>
-                            <rule>
-                                <limits>
-                                    <limit>
-                                        <counter>BRANCH</counter>
-                                        <value>COVEREDRATIO</value>
-                                        <minimum>100%</minimum>
-                                    </limit>
-                                </limits>
-                            </rule>
-                        </rules>
-                    </configuration>
-                </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <limits>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>100%</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -81,6 +86,27 @@
                     <execution>
                         <id>check</id>
                         <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
